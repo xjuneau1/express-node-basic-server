@@ -1,10 +1,10 @@
-const getZoos = require("../utils/getZoos")
+
 function validateZip(req, res, next) {
     const {zip} = req.params
-    if (getZoos(zip) && zip.length === 5 && Number(zip)){
-        next()
-    } else {
+    if (zip.length !== 5 || !Number(zip)){
         next(`Zip (${zip}) is invalid!`)
+    } else {
+        next()
     }
 }
 

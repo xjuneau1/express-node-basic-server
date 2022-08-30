@@ -13,16 +13,16 @@ app.use(morgan('dev'))
 app.get('/zoos/:zip', validateZip, (req,res,next) => {
     const {zip} = req.params
     if(getZoos(zip).length){
-        res.send(`${zip} zoos: ${getZoos(zip)}`)
+        res.send(`${zip} zoos: ${getZoos(zip).join('; ')}`)
     } else {
         res.send(`${zip} has no zoos.`)
     }
     
 })
-app.get('/check/:zip', (req, res, next)=>{
+app.get('/check/:zip', validateZip, (req, res, next)=>{
     const {zip} = req.params
     if(getZoos(zip)){
-        res.send(`${zip} exists in our records`)
+        res.send(`${zip} exists in our records.`)
     } else {
         res.send(`${zip} does not exist in our records.`)
     }
