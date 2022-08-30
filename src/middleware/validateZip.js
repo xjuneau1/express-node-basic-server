@@ -1,12 +1,11 @@
 const getZoos = require("../utils/getZoos")
 function validateZip(req, res, next) {
     const {zip} = req.params
-    if (getZoos(zip)){
-        res.send(`${zip} exists in our records`)
+    if (getZoos(zip) && zip.length === 5 && Number(zip)){
+        next()
     } else {
-        res.send(`${zip} does not exist in our records.`)
+        next(`Zip (${zip}) is invalid!`)
     }
-    next()
 }
 
 module.exports = validateZip;
